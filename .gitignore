@@ -1,1 +1,12 @@
-env/
+.pytest_cache/
+/fixtures/__pycache__
+/config/__pycache__
+/trend_app/management/commands/__pycache__
+/env
+/exports
+/trends/__pycache__
+/trend_app/__pycache__
+/trend_app/api/__pycache__
+/trend_app/tests/__pycache__
+/trend_app/migrations/__pycache__
+
