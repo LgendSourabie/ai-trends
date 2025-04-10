@@ -37,7 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
+    'corsheaders',
+    'django_filters',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'user',
+    'trend_app',
+    'import_export',
 ]
+
+AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +64,7 @@ ROOT_URLCONF = 'trends.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,6 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 8},
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -120,3 +131,82 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+        
+            'DEFAULT_AUTHENTICATION_CLASSES': [
+              
+                'rest_framework.authentication.SessionAuthentication',
+                'rest_framework.authentication.BasicAuthentication',
+                'rest_framework.authentication.TokenAuthentication',
+            ],
+            'DEFAULT_FILTER_BACKENDS': [
+                'django_filters.rest_framework.DjangoFilterBackend',
+                'rest_framework.filters.OrderingFilter',
+                'rest_framework.filters.SearchFilter',
+            ],
+            'DEFAULT_THROTTLE_CLASSES': [
+                'rest_framework.throttling.AnonRateThrottle',
+                'rest_framework.throttling.UserRateThrottle'
+            ],
+            'DEFAULT_THROTTLE_RATES':{
+                'anon':'50/minute',
+                'user':'100/minute',
+            },
+            }
+
+
+SWAGGER_SETTINGS = {
+            "SECURITY_DEFINITIONS": {
+            "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+            "Basic": {"type": "basic"},
+            }
+            }
+        
+
+LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "filters": {
+                "require_debug_false": {
+                "()": "django.utils.log.RequireDebugFalse",
+                },
+            },
+        "formatters": {
+                "verbose": {
+                "format": "{levelname} {asctime} {module}{process:d} {thread:d} {message}",
+                "style": "{",
+                    },
+            },
+        "handlers": {
+                "console": {
+                    "level":"DEBUG",
+                    "class": "logging.StreamHandler",
+                    "stream": "ext://sys.stdout",
+                    "formatter": "verbose",
+                    "filters": ["require_debug_false"],
+                },
+                "file": {
+                    "level": "ERROR",
+                    "class": "logging.FileHandler",
+                    "filename": "debug.log",
+                    "filters": ["require_debug_false"], 
+                },
+                "mail_admins": {
+                    "level": "ERROR",
+                    "class": "django.utils.log.AdminEmailHandler",
+                    "filters": ["require_debug_false"],
+                },
+            },
+        "loggers": {
+                "django.request": {
+                    "handlers": ["mail_admins"],
+                    "level": "ERROR",
+                    "propagate": True,
+                },
+            },
+        "root": {
+                    "handlers": ["console","file"],
+                    "level": "DEBUG",
+            },
+    }
