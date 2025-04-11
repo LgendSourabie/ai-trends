@@ -6,16 +6,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 class TrendExportResource(resources.ModelResource):
+    """
+    Export Resource class for exporting data from Database
+    """
     class Meta:
         model = Trend
     
     def after_export(self, queryset, dataset, **kwargs):
-        logger.info("The data have successfully been exported!")
+        logger.info("\n\tThe data have successfully been exported!")
         return super(TrendExportResource, self).after_export(queryset, dataset, **kwargs)
 
 class TrendImportResource(resources.ModelResource):
     """
-    Resource class for importing data into Database form admin 
+    Import Resource class for importing data into Database
     """
     class Meta:
         model = Trend
@@ -44,7 +47,7 @@ class TrendImportResource(resources.ModelResource):
         export_to_json()
         delete_files_with_extensions()
         count_imported_data = result.totals.get('new',0)
-        logger.info(f"{count_imported_data} records have successfully been imported!")
+        logger.info(f"\n\t{count_imported_data} records have successfully been imported!")
         return super(TrendImportResource, self).after_import(dataset, result, **kwargs)
 
     

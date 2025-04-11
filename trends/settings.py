@@ -194,13 +194,12 @@ LOGGING = {
                     "class": "logging.StreamHandler",
                     "stream": "ext://sys.stdout",
                     "formatter": "verbose",
-                    "filters": ["require_debug_false"],
                 },
                 "file": {
-                    "level": "ERROR",
+                    "level": "INFO",
                     "class": "logging.FileHandler",
-                    "filename": "debug.log",
-                    "filters": ["require_debug_false"], 
+                    "filename": "info.log",
+                    
                 },
                 "mail_admins": {
                     "level": "ERROR",
@@ -222,7 +221,7 @@ LOGGING = {
             },
         "root": {
                     "handlers": ["console","file"],
-                    "level": "INFO",
+                    "level": "DEBUG",
             },
     }
 

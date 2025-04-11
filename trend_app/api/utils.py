@@ -1,11 +1,13 @@
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
-import tablib
 from django.conf import settings
+import tablib
 import datetime
 import glob
 import json
 import os
+import logging
 
+logger = logging.getLogger(__name__)
 
 new_headers = [
     'megatrend',
@@ -82,24 +84,15 @@ def delete_files_with_extensions(csv_file_path=settings.BASE_DIR, file_extension
     """
         Delete the cvs file after the data have been imported  
     """
-#     file_name, _ = os.path.splitext(source)
-#     file_name = os.path.basename(file_name)
-
-    if os.name == "nt":
-        csv_file_path = settings.BASE_DIR.replace("\\", "/")
-
     for extension in file_extensions:
-        # file_suffix = f"{file_name}" + f"{extension}"
-
         path = os.path.join(csv_file_path, f"*{extension}")
-        # path = "*{extension}"
         
         csv_files_to_delete = glob.glob(path)
-        print('patern',path)
-        print("found",csv_files_to_delete)
-        # if csv_files_to_delete:
-        #     for file in csv_files_to_delete:
-        #         try:
-        #             os.remove(file)
-        #         except Exception as e:
-        #             print(f"Error deleting {file}: {e}")
+        if csv_files_to_delete:
+            for file in csv_files_to_delete:
+                try:
+                    os.remove(file)
+                    logger.info(f"\n\t{os.path.basename(file)} have successfully been removed!")
+                except Exception as e:
+                    logger.error(f"\n\tError when deleting {file}: {e}")
+                 
