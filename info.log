@@ -6,3 +6,4 @@
 	updated_data.csv have successfully been removed!
 
 	100 records have successfully been imported!
+No hostname was supplied. Reverting to default 'localhost'

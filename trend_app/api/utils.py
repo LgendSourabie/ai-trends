@@ -22,28 +22,15 @@ new_headers = [
     'real_world_application_and_use_cases'
 ]
 
-def update_headers():
+def update_headers(file_name='random_data.csv'):
     """
     Modify the header of the csv file to conform with python naming convention 
     """
-    with open('random_data.csv', 'r') as csv_file:
+    with open(file_name, 'r') as csv_file:
         dataset = tablib.Dataset().load(csv_file, format='csv', delimiter=';')
         dataset.headers = new_headers
         with open('updated_data.csv', 'w', encoding='utf-8', newline='') as f:
                 f.write(dataset.export('csv'))
-
-
-def import_csv():
-    """
-    Import the csv data into DB 
-    """
-    from trend_app.api.resources import TrendImportResource
-    update_headers()
-    resource = TrendImportResource()
-
-    with open('updated_data.csv','r', encoding='utf-8') as file:
-        data = tablib.Dataset().load(file.read(), format='csv')
-    resource.import_data(data, dry_run=False, raise_errors=True)
 
 
 def export_to_json():
@@ -66,15 +53,15 @@ def set_up_data_import_to_db():
     """Import csv data to database every 1 hours
        in case new data are collected
     """
-    schedule= IntervalSchedule.objects.filter(every=1, period=IntervalSchedule.HOURS).first()
+    schedule= IntervalSchedule.objects.filter(every=2, period=IntervalSchedule.MINUTES).first()
     args = json.dumps([])
 
     if not schedule:
-        schedule = IntervalSchedule.objects.create(every=1, period=IntervalSchedule.HOURS)
+        schedule = IntervalSchedule.objects.create(every=2, period=IntervalSchedule.MINUTES)
 
-    periodic_task, created = PeriodicTask.objects.get_or_create(
-            name = 'Database Periodic Update',
-            crontab = schedule,
+    PeriodicTask.objects.get_or_create(
+            name = 'Periodic Import of Data',
+            interval = schedule,
             args = args,
             task = "trend_app.api.tasks.import_csv_to_db"
     )

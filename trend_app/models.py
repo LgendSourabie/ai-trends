@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class Trend(models.Model):
     """
     Model of trends based on collected data set 
@@ -13,8 +11,8 @@ class Trend(models.Model):
     megatrend = models.CharField(max_length=150)
     macrotrend = models.CharField(max_length=200)
     challenges_and_research_gaps = models.TextField()
-    total_count_of_publications = models.IntegerField(null=True, blank=True)
-    total_count_of_patents = models.IntegerField(null=True, blank=True)
+    total_count_of_publications = models.PositiveIntegerField(null=True, blank=True)
+    total_count_of_patents = models.PositiveIntegerField(null=True, blank=True)
     technology_readiness_level = models.CharField(choices=TRL_OPTIONS,max_length=50, blank=True, null=True)
     impact_strength = models.CharField(choices=IMPACT_STRENGTH_OPTIONS, max_length=50, default=IMPACT_STRENGTH_OPTIONS[0])
     steepl = models.CharField(choices=STEEPL_OPTIONS,max_length=10, default=STEEPL_OPTIONS[0])

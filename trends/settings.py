@@ -12,228 +12,238 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from config.secrets import *
+from configurations import Configuration
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-etv#z6%wwulsps_tw-^vs-rm(ep@=5bo1op#!2b*pku!+_jc@u'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+class Dev(Configuration):
+    # Build paths inside the project like this: BASE_DIR / 'subdir'.
+    BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Application definition
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'drf_yasg',
-    'corsheaders',
-    'django_filters',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'debug_toolbar',
-    'user',
-    'trend_app.apps.TrendAppConfig',
-    'import_export',
-    'django_celery_results',
-    'django_celery_beat',
-]
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'django-insecure-etv#z6%wwulsps_tw-^vs-rm(ep@=5bo1op#!2b*pku!+_jc@u'
 
-AUTH_USER_MODEL = 'user.User'
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+    ALLOWED_HOSTS = []
 
-MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
 
-ROOT_URLCONF = 'trends.urls'
+    # Application definition
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'drf_yasg',
+        'corsheaders',
+        'django_filters',
+        'rest_framework',
+        'rest_framework.authtoken',
+        'debug_toolbar',
+        'user',
+        'trend_app.apps.TrendAppConfig',
+        'import_export',
+        'django_celery_results',
+        'django_celery_beat',
+    ]
+
+    AUTH_USER_MODEL = 'user.User'
+
+    INTERNAL_IPS = [
+        "127.0.0.1",
+    ]
+
+    MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        'django.middleware.security.SecurityMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
+
+    ROOT_URLCONF = 'trends.urls'
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [BASE_DIR / 'templates'],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
         },
-    },
-]
+    ]
 
-WSGI_APPLICATION = 'trends.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+    WSGI_APPLICATION = 'trends.wsgi.application'
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+    # Database
+    # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        'OPTIONS': {'min_length': 8},
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-REST_FRAMEWORK = {
-        
-            'DEFAULT_AUTHENTICATION_CLASSES': [
-              
-                'rest_framework.authentication.SessionAuthentication',
-                'rest_framework.authentication.BasicAuthentication',
-                'rest_framework.authentication.TokenAuthentication',
-            ],
-            'DEFAULT_FILTER_BACKENDS': [
-                'django_filters.rest_framework.DjangoFilterBackend',
-                'rest_framework.filters.OrderingFilter',
-                'rest_framework.filters.SearchFilter',
-            ],
-            'DEFAULT_THROTTLE_CLASSES': [
-                'rest_framework.throttling.AnonRateThrottle',
-                'rest_framework.throttling.UserRateThrottle'
-            ],
-            'DEFAULT_THROTTLE_RATES':{
-                'anon':'50/minute',
-                'user':'100/minute',
-            },
-            }
-
-
-SWAGGER_SETTINGS = {
-            "SECURITY_DEFINITIONS": {
-            "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
-            "Basic": {"type": "basic"},
-            }
-            }
-        
-
-LOGGING = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "filters": {
-                "require_debug_false": {
-                "()": "django.utils.log.RequireDebugFalse",
-                },
-            },
-        "formatters": {
-                "verbose": {
-                "format": "{levelname} {asctime} {module}{process:d} {thread:d} {message}",
-                "style": "{",
-                    },
-            },
-        "handlers": {
-                "console": {
-                    "level":"DEBUG",
-                    "class": "logging.StreamHandler",
-                    "stream": "ext://sys.stdout",
-                    "formatter": "verbose",
-                },
-                "file": {
-                    "level": "INFO",
-                    "class": "logging.FileHandler",
-                    "filename": "info.log",
-                    
-                },
-                "mail_admins": {
-                    "level": "ERROR",
-                    "class": "django.utils.log.AdminEmailHandler",
-                    "filters": ["require_debug_false"],
-                },
-            },
-        "loggers": {
-                "django": {
-                    "handlers": ["console"],
-                    "level": "INFO",
-                    "propagate": False,
-                },
-                "django.request": {
-                    "handlers": ["mail_admins"],
-                    "level": "ERROR",
-                    "propagate": True,
-                },
-            },
-        "root": {
-                    "handlers": ["console","file"],
-                    "level": "DEBUG",
-            },
-    }
-
-CACHE_TTL = 60 * 60 * 24
-
-CACHES = {
-            "default": {
-                "BACKEND": "django.core.cache.backends.redis.RedisCache",
-                "LOCATION": f"redis://:{REDIS_PWD}@127.0.0.1:6379/1",
-                "OPTIONS":{
-                    "password":REDIS_PWD,
-                },
-                "KEY_PREFIX":"trend_app",
-            }
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
+    }
+
+
+    # Password validation
+    # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+            'OPTIONS': {'min_length': 8},
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
+
+
+    # Internationalization
+    # https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+    LANGUAGE_CODE = 'en-us'
+
+    TIME_ZONE = 'UTC'
+
+    USE_I18N = True
+
+    USE_TZ = True
+
+
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+    STATIC_URL = 'static/'
+
+    # Default primary key field type
+    # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+    REST_FRAMEWORK = {
+            
+                'DEFAULT_AUTHENTICATION_CLASSES': [
+                
+                    'rest_framework.authentication.SessionAuthentication',
+                    'rest_framework.authentication.BasicAuthentication',
+                    'rest_framework.authentication.TokenAuthentication',
+                ],
+                'DEFAULT_FILTER_BACKENDS': [
+                    'django_filters.rest_framework.DjangoFilterBackend',
+                    'rest_framework.filters.OrderingFilter',
+                    'rest_framework.filters.SearchFilter',
+                ],
+                'DEFAULT_THROTTLE_CLASSES': [
+                    'rest_framework.throttling.AnonRateThrottle',
+                    'rest_framework.throttling.UserRateThrottle'
+                ],
+                'DEFAULT_THROTTLE_RATES':{
+                    'anon':'50/minute',
+                    'user':'100/minute',
+                },
+                }
+
+
+    SWAGGER_SETTINGS = {
+                "SECURITY_DEFINITIONS": {
+                "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+                "Basic": {"type": "basic"},
+                }
+                }
+            
+
+    LOGGING = {
+            "version": 1,
+            "disable_existing_loggers": False,
+            "filters": {
+                    "require_debug_false": {
+                    "()": "django.utils.log.RequireDebugFalse",
+                    },
+                },
+            "formatters": {
+                    "verbose": {
+                    "format": "{levelname} {asctime} {module}{process:d} {thread:d} {message}",
+                    "style": "{",
+                        },
+                },
+            "handlers": {
+                    "console": {
+                        "level":"DEBUG",
+                        "class": "logging.StreamHandler",
+                        "stream": "ext://sys.stdout",
+                        "formatter": "verbose",
+                    },
+                    "file": {
+                        "level": "INFO",
+                        "class": "logging.FileHandler",
+                        "filename": "info.log",
+                        
+                    },
+                    "mail_admins": {
+                        "level": "ERROR",
+                        "class": "django.utils.log.AdminEmailHandler",
+                        "filters": ["require_debug_false"],
+                    },
+                },
+            "loggers": {
+                    "django": {
+                        "handlers": ["console"],
+                        "level": "INFO",
+                        "propagate": False,
+                    },
+                    "django.request": {
+                        "handlers": ["mail_admins"],
+                        "level": "ERROR",
+                        "propagate": True,
+                    },
+                },
+            "root": {
+                        "handlers": ["console","file"],
+                        "level": "DEBUG",
+                },
+        }
+
+    CACHE_TTL = 60 * 15
+
+    CELERY_RESULT_BACKEND = "django-db"
+    CELERY_BROKER_URL = f'redis://:{REDIS_PWD}@127.0.0.1:6379/1'
+    BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+    CACHES = {
+                "default": {
+                    "BACKEND": "django.core.cache.backends.redis.RedisCache",
+                    "LOCATION": f"redis://:{REDIS_PWD}@127.0.0.1:6379/1",
+                    "OPTIONS":{
+                        "password":REDIS_PWD,
+                    },
+                    "KEY_PREFIX":"trend_app",
+                }
+            }
+    
+
+class Prod(Dev):
+    DEBUG = False
