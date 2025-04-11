@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from config.secrets import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,15 +43,24 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
+    'debug_toolbar',
     'user',
-    'trend_app',
+    'trend_app.apps.TrendAppConfig',
     'import_export',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 AUTH_USER_MODEL = 'user.User'
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -199,6 +209,11 @@ LOGGING = {
                 },
             },
         "loggers": {
+                "django": {
+                    "handlers": ["console"],
+                    "level": "INFO",
+                    "propagate": False,
+                },
                 "django.request": {
                     "handlers": ["mail_admins"],
                     "level": "ERROR",
@@ -207,6 +222,19 @@ LOGGING = {
             },
         "root": {
                     "handlers": ["console","file"],
-                    "level": "DEBUG",
+                    "level": "INFO",
             },
     }
+
+CACHE_TTL = 60 * 60 * 24
+
+CACHES = {
+            "default": {
+                "BACKEND": "django.core.cache.backends.redis.RedisCache",
+                "LOCATION": f"redis://:{REDIS_PWD}@127.0.0.1:6379/1",
+                "OPTIONS":{
+                    "password":REDIS_PWD,
+                },
+                "KEY_PREFIX":"trend_app",
+            }
+        }
