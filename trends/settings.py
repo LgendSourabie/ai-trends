@@ -32,7 +32,7 @@ class Dev(Configuration):
 
     ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
-    
+
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:8080",
         "http://127.0.0.1:8080",
@@ -62,7 +62,7 @@ class Dev(Configuration):
         'debug_toolbar',
         'user',
         'file_upload',
-        'trend_app.apps.TrendAppConfig',
+        'trend_app',
         'import_export',
         'django_celery_results',
         'django_celery_beat',
@@ -110,19 +110,20 @@ class Dev(Configuration):
     # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
     DATABASES = {
-        'test':{
-            'ENGINE': 'django.db.backends.postgresql',
-            'USER': SQL_USER,
-            'PASSWORD': SQL_PWD,
-            'NAME': DB_NAME,
-            'HOST':DB_HOST,
-            'PORT':5432,
-
-        },
-        'default': {
+            'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         },
+        # 'default':{
+        #     'ENGINE': 'django.db.backends.postgresql',
+        #     'USER': SQL_USER,
+        #     'PASSWORD': SQL_PWD,
+        #     'NAME': DB_NAME,
+        #     'HOST':DB_HOST,
+        #     'PORT':5432,
+
+        # },
+        
     }
 
 
@@ -269,7 +270,7 @@ class Dev(Configuration):
                     "KEY_PREFIX":"trend_app",
                 }
             }
-    
+        
 
 class Prod(Dev):
     DEBUG = False

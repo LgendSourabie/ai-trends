@@ -11,7 +11,7 @@ import os
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'trends.settings')
-os.environ.setdefault("DJANGO_CONFIGURATION", "Prod")
+os.environ.setdefault("DJANGO_CONFIGURATION", "Dev")
 
 from configurations.wsgi import get_wsgi_application
 
