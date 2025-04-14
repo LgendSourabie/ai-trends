@@ -146,7 +146,7 @@ DB_HOST="127.0.0.1"
 
 ## 3. Endpoints Overview
 
-Since the endpoints are fully documented with OpenAPI specification, no further in-depth details will be given in this section. Visit the two links below after running your server to consult the documentation.
+Since the endpoints are fully documented with OpenAPI specification, no further in-depth details will be given in this section. Visit the link below after running your server to consult the documentation.
 
     http://localhost:8000/redoc/
 
