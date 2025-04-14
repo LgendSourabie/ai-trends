@@ -1,6 +1,6 @@
 from trend_app.models import Trend
 from import_export import resources
-from trend_app.api.utils import delete_files_with_extensions, export_to_json
+from trend_app.api.utils import export_to_json
 import logging
 
 logger = logging.getLogger(__name__)
@@ -45,7 +45,6 @@ class TrendImportResource(resources.ModelResource):
 
     def after_import(self, dataset, result, **kwargs):
         export_to_json()
-        delete_files_with_extensions()
         count_imported_data = result.totals.get('new',0)
         logger.info(f"\n\t{count_imported_data} records have successfully been imported!")
         return super(TrendImportResource, self).after_import(dataset, result, **kwargs)

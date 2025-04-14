@@ -1,5 +1,6 @@
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
 from django.conf import settings
+from file_upload.models import FileUpload
 import tablib
 import datetime
 import glob
@@ -22,15 +23,19 @@ new_headers = [
     'real_world_application_and_use_cases'
 ]
 
-def update_headers(file_name='random_data.csv'):
+def update_headers(file_name):
     """
     Modify the header of the csv file to conform with python naming convention 
     """
+    os.makedirs('media', exist_ok=True)
+    file_name = os.path.join('media/', file_name)
     with open(file_name, 'r') as csv_file:
         dataset = tablib.Dataset().load(csv_file, format='csv', delimiter=';')
         dataset.headers = new_headers
-        with open('updated_data.csv', 'w', encoding='utf-8', newline='') as f:
+        output_name = file_name.split('.')[0] + "_updated.csv"
+        with open(output_name, 'w', encoding='utf-8', newline='') as f:
                 f.write(dataset.export('csv'))
+    return output_name
 
 
 def export_to_json():
@@ -82,4 +87,5 @@ def delete_files_with_extensions(csv_file_path=settings.BASE_DIR, file_extension
                     logger.info(f"\n\t{os.path.basename(file)} have successfully been removed!")
                 except Exception as e:
                     logger.error(f"\n\tError when deleting {file}: {e}")
+    FileUpload.objects.all().delete()
                  

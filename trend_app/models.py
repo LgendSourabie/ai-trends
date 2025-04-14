@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Trend(models.Model):
     """
     Model of trends based on collected data set 

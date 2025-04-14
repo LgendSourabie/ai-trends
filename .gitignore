@@ -4,7 +4,7 @@
 /trend_app/management/commands/__pycache__
 /env
 /wenv
-/exports
+/media
 /trends/__pycache__
 /trend_app/__pycache__
 /trend_app/api/__pycache__
@@ -14,6 +14,10 @@
 /user/api/__pycache__
 /user/tests/__pycache__
 /user/migrations/__pycache__
+/file_upload/__pycache__
+/file_upload/api/__pycache__
+/file_upload/tests/__pycache__
+/file_upload/migrations/__pycache__
 db.sqlite3
 *.csv
 scripts

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from config.secrets import *
 from configurations import Configuration
@@ -28,7 +29,20 @@ class Dev(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 
-    ALLOWED_HOSTS = []
+
+    ALLOWED_HOSTS = ['localhost','127.0.0.1']
+
+    
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        ]
+
+
+    CORS_ALLOW_HEADERS = [
+            'authorization',
+            'content-type',
+        ]
 
 
     # Application definition
@@ -47,6 +61,7 @@ class Dev(Configuration):
         'rest_framework.authtoken',
         'debug_toolbar',
         'user',
+        'file_upload',
         'trend_app.apps.TrendAppConfig',
         'import_export',
         'django_celery_results',
@@ -95,10 +110,19 @@ class Dev(Configuration):
     # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
     DATABASES = {
+        'test':{
+            'ENGINE': 'django.db.backends.postgresql',
+            'USER': SQL_USER,
+            'PASSWORD': SQL_PWD,
+            'NAME': DB_NAME,
+            'HOST':DB_HOST,
+            'PORT':5432,
+
+        },
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
-        }
+        },
     }
 
 
@@ -138,6 +162,8 @@ class Dev(Configuration):
     # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
     STATIC_URL = 'static/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
 
     # Default primary key field type
     # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -227,7 +253,7 @@ class Dev(Configuration):
                 },
         }
 
-    CACHE_TTL = 60 * 15
+    CACHE_TTL = 60 * 2
 
     CELERY_RESULT_BACKEND = "django-db"
     CELERY_BROKER_URL = f'redis://:{REDIS_PWD}@127.0.0.1:6379/1'

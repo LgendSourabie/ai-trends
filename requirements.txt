@@ -20,10 +20,12 @@ django-timezone-field==7.1
 django_celery_results==2.6.0
 djangorestframework==3.16.0
 drf-yasg==1.21.10
+honcho==2.0.0
 inflection==0.5.1
 kombu==5.5.2
 packaging==24.2
 prompt_toolkit==3.0.50
+psycopg2-binary==2.9.10
 python-crontab==3.2.0
 python-dateutil==2.9.0.post0
 pytz==2025.2

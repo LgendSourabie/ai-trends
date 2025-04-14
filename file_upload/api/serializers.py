@@ -1,10 +1,9 @@
-from trend_app.models import Trend
 from rest_framework import serializers
+from file_upload.models import FileUpload
 
-
-class TrendSerializer(serializers.ModelSerializer):
+class FileUploadSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Trend
+        model = FileUpload
         fields = "__all__"
         read_only_fields = ['uploaded_at','updated_at']

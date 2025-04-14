@@ -7,3 +7,7 @@
 
 	100 records have successfully been imported!
 No hostname was supplied. Reverting to default 'localhost'
+
+	random_data.csv have successfully been removed!
+
+	random_data_updated.csv have successfully been removed!
